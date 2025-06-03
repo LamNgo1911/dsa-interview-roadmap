@@ -35,17 +35,35 @@ public class Problem1 {
     }
 
     public int[] plusOne(int[] digits) {
-        for(int i=digits.length-1;i>=0;i--){
-            if(digits[i]+1<=9){
-                digits[i]+=1;
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if (digits[i] + 1 <= 9) {
+                digits[i] += 1;
                 return digits;
-            }else{
-                digits[i]=0;
+            } else {
+                digits[i] = 0;
             }
-       }
-       int[] ar=new int[digits.length+1];
-       ar[0]=1;
-       return ar;
+        }
+        int[] ar = new int[digits.length + 1];
+        ar[0] = 1;
+        return ar;
+    }
+
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+
+        int i = m - 1;
+        int j = n - 1;
+        int k = m + n - 1;
+        while (i >= 0 && j >= 0) {
+            if (nums1[i] > nums2[j]) {
+                nums1[k--] = nums1[i--];
+            } else {
+                nums1[k--] = nums2[j--];
+            }
+        }
+
+        while (j >= 0) {
+            nums1[k--] = nums2[j--];
+        }
     }
 
 }
