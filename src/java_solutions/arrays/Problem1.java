@@ -1,6 +1,9 @@
 
 package java_solutions.arrays;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Problem1 {
     public static void main(String[] args) {
         System.out.println("✅ Java is running!");
@@ -66,23 +69,56 @@ public class Problem1 {
         }
     }
 
-    public TreeNode sortedArrayToBST(int[] nums) {
-        return buildBST(nums, 0, nums.length -1);
+    class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int val) {
+            this.val = val;
+        }
     }
 
-    private TreeNode buildBST(int[] nums, int left, int right){
-        if(left > right){
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return buildBST(nums, 0, nums.length - 1);
+    }
+
+    private TreeNode buildBST(int[] nums, int left, int right) {
+        if (left > right) {
             return null;
         }
 
-        int mid = left + (right - left)/2;
+        int mid = left + (right - left) / 2;
         int val = nums[mid];
         TreeNode node = new TreeNode(val);
 
-        node.left = buildBST(nums,left, mid - 1);
+        node.left = buildBST(nums, left, mid - 1);
         node.right = buildBST(nums, mid + 1, right);
 
         return node;
     }
 
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> valueArr = new ArrayList<>();
+            valueArr.add(1);
+
+            for (int j = 1; j <= i - 1; j++) {
+                int preFirstVal = result.get(i - 1).get(j - 1);
+                int preSecondVal = result.get(i - 1).get(j);
+                int val = preFirstVal + preSecondVal;
+
+                valueArr.add(val);
+            }
+
+            if (i > 0) {
+                valueArr.add(1);
+            }
+            result.add(valueArr);
+        }
+
+        return result;
+    }
 }
