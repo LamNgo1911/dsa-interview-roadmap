@@ -2,7 +2,9 @@
 package java_solutions.arrays;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Problem1 {
     public static void main(String[] args) {
@@ -120,5 +122,33 @@ public class Problem1 {
         }
 
         return result;
+    }
+
+    public int lengthOfLongestSubstring(String s) {
+        // Edge case: empty string
+        if (s == null || s.length() == 0)
+            return 0;
+
+        Set<Character> set = new HashSet<>(); // Set to track unique characters in current window
+        int maxLength = 0; // Stores the maximum length found
+        int start = 0; // Left boundary of sliding window
+
+        for (int end = 0; end < s.length(); end++) {
+            char currentChar = s.charAt(end);
+
+            // If character is already in set, shrink window from the left
+            while (set.contains(currentChar)) {
+                set.remove(s.charAt(start));
+                start++;
+            }
+
+            // Add current character to set
+            set.add(currentChar);
+
+            // Update maxLength if this window is longer
+            maxLength = Math.max(maxLength, end - start + 1);
+        }
+
+        return maxLength;
     }
 }
