@@ -243,4 +243,36 @@ public class Problem1 {
 
         return true;
     }
+
+    public boolean isPalindromeLinkedLink(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode mid = slow;
+        ListNode prev = null;
+
+        while (mid != null) {
+            ListNode nextNode = mid.next;
+            mid.next = prev;
+            prev = mid;
+            mid = nextNode;
+        }
+
+        ListNode secondHalf = prev;
+        while (secondHalf != null) {
+            if (head.val != secondHalf.val) {
+                return false;
+            }
+
+            head = head.next;
+            secondHalf = secondHalf.next;
+        }
+
+        return true;
+    }
 }
