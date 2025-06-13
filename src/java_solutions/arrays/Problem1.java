@@ -3,8 +3,10 @@ package java_solutions.arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Problem1 {
@@ -278,18 +280,39 @@ public class Problem1 {
 
     public boolean containsNearbyDuplicate(int[] nums, int k) {
         HashSet<Integer> set = new HashSet<>();
-        
-        for(int i = 0; i < nums.length; i++){
-           if(set.contains(nums[i])){
+
+        for (int i = 0; i < nums.length; i++) {
+            if (set.contains(nums[i])) {
                 return true;
-           }
+            }
 
-           set.add(nums[i]);
+            set.add(nums[i]);
 
-             if (i >= k) {
+            if (i >= k) {
                 set.remove(nums[i - k]);
             }
         }
         return false;
+    }
+
+    public int findLHS(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(nums[i])) {
+                map.put(nums[i], map.get(nums[i]) + 1);
+            } else {
+                map.put(nums[i], 1);
+            }
+        }
+        int maxLen = 0;
+        for (int key : map.keySet()) {
+            if (map.containsKey(key + 1)) {
+                int sum = map.get(key) + map.get(key + 1);
+                maxLen = Math.max(maxLen, sum);
+            }
+        }
+
+        return maxLen;
     }
 }
