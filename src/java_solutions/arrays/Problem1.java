@@ -315,4 +315,19 @@ public class Problem1 {
 
         return maxLen;
     }
+
+    public double findMaxAverage(int[] nums, int k) {
+        double maxAverage = Double.NEGATIVE_INFINITY;
+        double sum = 0;
+        
+        for(int i = 0; i < nums.length ; i++){
+            sum += nums[i];
+
+            if(i >= k - 1){
+                maxAverage = Math.max(maxAverage, sum / k);
+                sum -= nums[i - k + 1];
+            }
+        }
+        return maxAverage;
+    }
 }
