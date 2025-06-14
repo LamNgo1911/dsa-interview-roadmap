@@ -330,4 +330,50 @@ public class Problem1 {
         }
         return maxAverage;
     }
+
+    public int[] decrypt(int[] code, int k) {
+        int n = code.length;
+        int[] res = new int[n];
+
+        if(k == 0){
+            return res;
+        }
+
+        if(k < 0){
+            reverseArr(code);
+        }
+
+        int sum = 0;
+        int absK = Math.abs(k);
+        for(int i = 1; i <= absK; i++){
+                sum += code[i % n];
+            }
+
+        for(int i = 0; i < n; i++){
+            res[i] = sum;
+
+            sum -= code[(i + 1) % n];
+            sum += code[(absK + i + 1) % n];
+        }
+
+        if(k < 0){
+            reverseArr(res);
+        }
+
+        
+        return res;
+    }
+
+    public void reverseArr(int []arr){
+        int s=0;
+        int e=arr.length-1;
+
+        while(s<e){
+            int temp=arr[e];
+            arr[e]=arr[s];
+            arr[s]=temp;
+            s++;
+            e--;
+        }
+    }
 }
