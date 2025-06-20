@@ -376,4 +376,33 @@ public class Problem1 {
             e--;
         }
     }
+
+    public String longestNiceSubstring(String s) {
+        int maxLen = 0;
+        String result = "";
+
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + 1; j <= s.length(); j++) {
+                String substr = s.substring(i, j);
+                if (isNice(substr) && substr.length() > maxLen) {
+                    maxLen = substr.length();
+                    result = substr;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private boolean isNice(String str) {
+       HashSet<Character> set = new HashSet<>();
+        for (char c : str.toCharArray()) set.add(c);
+
+        for(char c : str.toCharArray()){
+            if(!(set.contains(Character.toLowerCase(c)) && set.contains(Character.toUpperCase(c)))){
+                return false;
+            }
+        }
+        return true;
+    }
 }
