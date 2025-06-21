@@ -319,11 +319,11 @@ public class Problem1 {
     public double findMaxAverage(int[] nums, int k) {
         double maxAverage = Double.NEGATIVE_INFINITY;
         double sum = 0;
-        
-        for(int i = 0; i < nums.length ; i++){
+
+        for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
 
-            if(i >= k - 1){
+            if (i >= k - 1) {
                 maxAverage = Math.max(maxAverage, sum / k);
                 sum -= nums[i - k + 1];
             }
@@ -335,43 +335,42 @@ public class Problem1 {
         int n = code.length;
         int[] res = new int[n];
 
-        if(k == 0){
+        if (k == 0) {
             return res;
         }
 
-        if(k < 0){
+        if (k < 0) {
             reverseArr(code);
         }
 
         int sum = 0;
         int absK = Math.abs(k);
-        for(int i = 1; i <= absK; i++){
-                sum += code[i % n];
-            }
+        for (int i = 1; i <= absK; i++) {
+            sum += code[i % n];
+        }
 
-        for(int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             res[i] = sum;
 
             sum -= code[(i + 1) % n];
             sum += code[(absK + i + 1) % n];
         }
 
-        if(k < 0){
+        if (k < 0) {
             reverseArr(res);
         }
 
-        
         return res;
     }
 
-    public void reverseArr(int []arr){
-        int s=0;
-        int e=arr.length-1;
+    public void reverseArr(int[] arr) {
+        int s = 0;
+        int e = arr.length - 1;
 
-        while(s<e){
-            int temp=arr[e];
-            arr[e]=arr[s];
-            arr[s]=temp;
+        while (s < e) {
+            int temp = arr[e];
+            arr[e] = arr[s];
+            arr[s] = temp;
             s++;
             e--;
         }
@@ -395,14 +394,32 @@ public class Problem1 {
     }
 
     private boolean isNice(String str) {
-       HashSet<Character> set = new HashSet<>();
-        for (char c : str.toCharArray()) set.add(c);
+        HashSet<Character> set = new HashSet<>();
+        for (char c : str.toCharArray())
+            set.add(c);
 
-        for(char c : str.toCharArray()){
-            if(!(set.contains(Character.toLowerCase(c)) && set.contains(Character.toUpperCase(c)))){
+        for (char c : str.toCharArray()) {
+            if (!(set.contains(Character.toLowerCase(c)) && set.contains(Character.toUpperCase(c)))) {
                 return false;
             }
         }
         return true;
+    }
+
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums.length; ++i) {
+            int complement = target - nums[i];
+
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
+            }
+
+            map.put(nums[i], i);
+        }
+
+        // Should never be reached if input guarantees exactly one solution
+        throw new IllegalArgumentException("No two sum solution");
     }
 }
