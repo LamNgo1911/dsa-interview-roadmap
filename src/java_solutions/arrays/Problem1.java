@@ -377,7 +377,8 @@ public class Problem1 {
     }
 
     public String longestNiceSubstring(String s) {
-          if (s.length() < 2) return "";
+        if (s.length() < 2)
+            return "";
 
         // Check if current string is nice
         for (int i = 0; i < s.length(); i++) {
@@ -409,5 +410,18 @@ public class Problem1 {
 
         // Should never be reached if input guarantees exactly one solution
         throw new IllegalArgumentException("No two sum solution");
+    }
+
+    public int countGoodSubstrings(String s) {
+        int result = 0;
+
+        for (int i = 0; i < s.length() - 2; i++) {
+            if (s.charAt(i) != s.charAt(i + 1) && s.charAt(i) != s.charAt(i + 2)
+                    && s.charAt(i + 1) != s.charAt(i + 2)) {
+                result++;
+            }
+        }
+        return result;
+
     }
 }
