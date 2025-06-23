@@ -377,33 +377,21 @@ public class Problem1 {
     }
 
     public String longestNiceSubstring(String s) {
-        int maxLen = 0;
-        String result = "";
+          if (s.length() < 2) return "";
 
+        // Check if current string is nice
         for (int i = 0; i < s.length(); i++) {
-            for (int j = i + 1; j <= s.length(); j++) {
-                String substr = s.substring(i, j);
-                if (isNice(substr) && substr.length() > maxLen) {
-                    maxLen = substr.length();
-                    result = substr;
-                }
+            char c = s.charAt(i);
+            if (s.indexOf(Character.toLowerCase(c)) == -1 || s.indexOf(Character.toUpperCase(c)) == -1) {
+                // Split and recurse
+                String left = longestNiceSubstring(s.substring(0, i));
+                String right = longestNiceSubstring(s.substring(i + 1));
+                return left.length() >= right.length() ? left : right;
             }
         }
 
-        return result;
-    }
-
-    private boolean isNice(String str) {
-        HashSet<Character> set = new HashSet<>();
-        for (char c : str.toCharArray())
-            set.add(c);
-
-        for (char c : str.toCharArray()) {
-            if (!(set.contains(Character.toLowerCase(c)) && set.contains(Character.toUpperCase(c)))) {
-                return false;
-            }
-        }
-        return true;
+        // Whole string is nice
+        return s;
     }
 
     public int[] twoSum(int[] nums, int target) {
