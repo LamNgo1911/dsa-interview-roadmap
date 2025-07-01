@@ -473,4 +473,20 @@ public class Problem1 {
         preorder(node.left, result);
         preorder(node.right, result);
     }
+
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+
+        postorder(root, result);
+
+        return result;
+    }
+
+    private void postorder(TreeNode node, List<Integer> result){
+        if(node != null){
+            postorder(node.left, result);
+            postorder(node.right, result);
+            result.add(node.val);
+        }
+    }
 }
