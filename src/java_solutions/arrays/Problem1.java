@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 public class Problem1 {
     public static void main(String[] args) {
@@ -523,6 +524,44 @@ public class Problem1 {
     
     public boolean empty() {
         return q1.isEmpty();
+    }
+}
+
+class MyQueue {
+    Stack<Integer> s1;
+    Stack<Integer> s2;
+
+    public MyQueue() {
+        s1 = new Stack<>();
+        s2 = new Stack<>();
+    }
+    
+    public void push(int x) {
+    // Move everything out of s1
+    while (!s1.isEmpty()) {
+        s2.push(s1.pop());
+    }
+
+    // Push new element at bottom of queue
+    s2.push(x);
+
+    // Move everything back to s1
+    while (!s2.isEmpty()) {
+        s1.push(s2.pop());
+    }
+}
+
+    
+    public int pop() {
+        return s1.pop();
+    }
+    
+    public int peek() {
+        return s1.peek();
+    }
+    
+    public boolean empty() {
+        return s1.isEmpty();
     }
 }
 
