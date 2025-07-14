@@ -648,4 +648,25 @@ class MyQueue {
         return dfs(node.left, k, set) || dfs(node.right, k, set);
     }
 
+    public TreeNode searchBST(TreeNode root, int val) {
+        return inOrder(root, val);
+    }
+
+    private TreeNode inOrder(TreeNode node, int val){
+      if(node == null){
+            return null;
+        }
+
+        if(node.val == val){
+            return node;
+        }
+
+        TreeNode leftResult = inOrder(node.left, val);
+        if(leftResult != null){
+            return leftResult;
+        }
+
+        return inOrder(node.right, val);
+}
+
 }
