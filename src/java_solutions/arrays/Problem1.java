@@ -565,7 +565,7 @@ class MyQueue {
     }
 }
 
- private Integer prev = null;
+    private Integer prev = null;
     private int count = 0;
     private int maxCount = 0;
     private List<Integer> modes = new ArrayList<>();
@@ -604,5 +604,33 @@ class MyQueue {
 
         inOrder(node.right);
     }
+
+    class Solution_getMinimumDifference{
+    private int min = Integer.MAX_VALUE;
+    private Integer prev = null;
+    public int getMinimumDifference(TreeNode root) {
+        inOrder(root);
+
+        return min;
+    }
+
+    private void inOrder(TreeNode node){
+        if(node == null){
+            return;
+        }
+
+        inOrder(node.left);
+        
+        if(prev != null){
+            int sub = node.val - prev;
+
+            if(sub < min){
+                min = sub;
+            }
+        }
+        prev = node.val;
+        inOrder(node.right);
+    }
+}
 
 }
