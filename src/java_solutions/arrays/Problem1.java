@@ -633,7 +633,7 @@ class MyQueue {
     }
 }
 
-public boolean findTarget(TreeNode root, int k) {
+    public boolean findTarget(TreeNode root, int k) {
         HashSet<Integer> set = new HashSet<>();
         return dfs(root, k, set);
     }
