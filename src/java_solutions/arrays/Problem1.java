@@ -920,4 +920,29 @@ class MyQueue {
           return -1;
     }
 
+    public int[] fairCandySwap(int[] aliceSizes, int[] bobSizes) {
+          // 1. Compute sums
+        int sumA = 0, sumB = 0;
+        for (int a : aliceSizes) sumA += a;
+        for (int b : bobSizes) sumB += b;
+
+        // 2. Compute delta (the difference Alice needs to give compared to Bob)
+        int delta = (sumA - sumB) / 2;
+
+        // 3. Put all of Bob’s candy box sizes in a HashSet
+        Set<Integer> bobSet = new HashSet<>();
+        for (int b : bobSizes) bobSet.add(b);
+
+        // 4. For each candy size Alice has, check if a matching box exists in Bob’s set
+        for (int x : aliceSizes) {
+            int y = x - delta; // candidate from Bob
+            if (bobSet.contains(y)) {
+                return new int[]{x, y}; // found valid pair
+            }
+        }
+
+        // 5. Guaranteed one answer exists, but just in case
+        return new int[0];
+    }
+
 }
